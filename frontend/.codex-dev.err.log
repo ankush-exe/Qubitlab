@@ -1,0 +1,102 @@
+10:29:09 am [vite] (client) Pre-transform error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected `,` or `}` but found `]`
+ - `,` or `}` expected in src/visualCoding/blocks.ts at 4203..4204
+ - Opened here in src/visualCoding/blocks.ts at 3778..3779
+
+  Plugin: vite:oxc
+  File: C:/Code/Projects/QubitLab/Qubitlab-main/frontend/src/visualCoding/blocks.ts
+10:29:09 am [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected `,` or `}` but found `]`
+ - `,` or `}` expected in src/visualCoding/blocks.ts at 4203..4204
+ - Opened here in src/visualCoding/blocks.ts at 3778..3779
+
+  Plugin: vite:oxc
+  File: C:/Code/Projects/QubitLab/Qubitlab-main/frontend/src/visualCoding/blocks.ts
+      at transformWithOxc (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:7208:19)
+      at TransformPluginContext.transform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:7280:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:8172:51)
+      at async loadAndTransform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:19634:26)
+      at async viteTransformMiddleware (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:19853:20)
+10:29:09 am [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+10:29:11 am [vite] (client) Pre-transform error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected `,` or `}` but found `]`
+ - `,` or `}` expected in src/visualCoding/blocks.ts at 4203..4204
+ - Opened here in src/visualCoding/blocks.ts at 3778..3779
+
+  Plugin: vite:oxc
+  File: C:/Code/Projects/QubitLab/Qubitlab-main/frontend/src/visualCoding/blocks.ts
+10:29:11 am [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected `,` or `}` but found `]`
+ - `,` or `}` expected in src/visualCoding/blocks.ts at 4203..4204
+ - Opened here in src/visualCoding/blocks.ts at 3778..3779
+
+  Plugin: vite:oxc
+  File: C:/Code/Projects/QubitLab/Qubitlab-main/frontend/src/visualCoding/blocks.ts
+      at transformWithOxc (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:7208:19)
+      at TransformPluginContext.transform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:7280:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:8172:51)
+      at async loadAndTransform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:19634:26)
+      at async viteTransformMiddleware (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:19853:20)
+10:39:47 am [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected `,` or `}` but found `]`
+ - `,` or `}` expected in src/visualCoding/blocks.ts at 4203..4204
+ - Opened here in src/visualCoding/blocks.ts at 3778..3779
+
+  Plugin: vite:oxc
+  File: C:/Code/Projects/QubitLab/Qubitlab-main/frontend/src/visualCoding/blocks.ts
+      at transformWithOxc (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:7208:19)
+      at TransformPluginContext.transform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:7280:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:8172:51)
+      at async loadAndTransform (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:19634:26)
+      at async viteTransformMiddleware (file:///C:/Code/Projects/QubitLab/Qubitlab-main/frontend/node_modules/vite/dist/node/chunks/node.js:19853:20)
+10:44:08 am [vite] (client) [Unhandled error] TypeError: Invalid block definition for type: quantum_create_circuit
+ > new ho node_modules/blockly/blockly_compressed.js:1248:316
+ > new ji node_modules/blockly/blockly_compressed.js:1336:134
+ > $h.newBlock node_modules/blockly/blockly_compressed.js:1783:255
+ > fe node_modules/blockly/blockly_compressed.js:85:90
+ > de node_modules/blockly/blockly_compressed.js:84:167
+ > ee node_modules/blockly/blockly_compressed.js:83:246
+ > hn.load node_modules/blockly/blockly_compressed.js:1076:423
+ > Object.load node_modules/blockly/blockly_compressed.js:1593:2
+ > src/components/VisualCoding.tsx:28:37
+    26 |      const nextWorkspace = Blockly.inject(host.current, { toolbox, trashcan: true, scrollbars: true, renderer: "zelos"...
+    27 |      workspace.current = nextWorkspace;
+    28 |      Blockly.serialization.workspaces.load(starterWorkspace, nextWorkspace);
+       |                                       ^
+    29 |      const sync = () => {
+    30 |        const next = workspaceToCircuit(nextWorkspace);
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25989:19
+
+10:44:08 am [vite] (client) [console.warn] An error occurred in the <VisualCoding> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+10:44:08 am [vite] (client) [Unhandled error] TypeError: Invalid block definition for type: quantum_create_circuit
+ > new ho node_modules/blockly/blockly_compressed.js:1248:316
+ > new ji node_modules/blockly/blockly_compressed.js:1336:134
+ > $h.newBlock node_modules/blockly/blockly_compressed.js:1783:255
+ > fe node_modules/blockly/blockly_compressed.js:85:90
+ > de node_modules/blockly/blockly_compressed.js:84:167
+ > ee node_modules/blockly/blockly_compressed.js:83:246
+ > hn.load node_modules/blockly/blockly_compressed.js:1076:423
+ > Object.load node_modules/blockly/blockly_compressed.js:1593:2
+ > src/components/VisualCoding.tsx:28:37
+    26 |      const nextWorkspace = Blockly.inject(host.current, { toolbox, trashcan: true, scrollbars: true, renderer: "zelos"...
+    27 |      workspace.current = nextWorkspace;
+    28 |      Blockly.serialization.workspaces.load(starterWorkspace, nextWorkspace);
+       |                                       ^
+    29 |      const sync = () => {
+    30 |        const next = workspaceToCircuit(nextWorkspace);
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25989:19
+
+10:44:08 am [vite] (client) [console.warn] An error occurred in the <VisualCoding> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+

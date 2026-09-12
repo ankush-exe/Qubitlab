@@ -1,0 +1,16 @@
+
+> qubitlab-frontend@0.1.0 dev
+> vite --host 127.0.0.1 --port 5173
+
+
+  VITE v8.3.0  ready in 267 ms
+
+  ➜  Local:   http://127.0.0.1:5173/
+  ➜  press h + enter to show help
+10:26:54 am [vite] (client) hmr update /src/App.tsx
+10:29:09 am [vite] (client) hmr update /src/App.tsx
+10:29:10 am [vite] (client) dependency optimized: blockly
+10:29:10 am [vite] (client) optimized dependencies changed. reloading
+10:39:47 am [vite] (client) page reload src/main.tsx
+10:44:34 am [vite] (client) hmr update /src/components/VisualCoding.tsx
+10:45:48 am [vite] (client) hmr update /src/components/VisualCoding.tsx
