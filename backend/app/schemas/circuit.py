@@ -43,6 +43,10 @@ class CircuitModel(BaseModel):
         return self
 
 
+class MentorRequest(CircuitModel):
+    question: str | None = Field(default=None, max_length=1000)
+
+
 class ProbabilityResult(BaseModel):
     state: str
     probability: float

@@ -1,0 +1,84 @@
+import os
+from collections import Counter
+
+from app.quantum.qiskit_adapter import build_qiskit_circuit
+from app.schemas.circuit import CircuitModel
+
+
+SYSTEM_PROMPT = """You are a quantum-computing tutor reviewing a student's circuit.
+Explain what the circuit does, flag likely mistakes without assuming unstated intent,
+and answer the student's question if one is provided. Keep the response to 2-4 short
+paragraphs. Do not use markdown headers or bullets."""
+
+
+def circuit_summary(circuit: CircuitModel) -> dict:
+    gate_counts = Counter(gate.type for gate in circuit.gates)
+    touched_qubits = sorted(
+        {qubit for gate in circuit.gates for qubit in gate.targets + gate.controls}
+    )
+    entangling_pairs = [
+        {"control": gate.controls[0], "target": gate.targets[0]}
+        for gate in circuit.gates
+        if gate.type == "CNOT"
+    ]
+    return {
+        "qubits": circuit.qubits,
+        "gate_count": len(circuit.gates),
+        "gate_counts": dict(sorted(gate_counts.items())),
+        "touched_qubits": touched_qubits,
+        "untouched_qubits": [qubit for qubit in range(circuit.qubits) if qubit not in touched_qubits],
+        "entangling_pairs": entangling_pairs,
+    }
+
+
+def _fallback_notes(summary: dict, question: str | None) -> list[str]:
+    notes: list[str] = []
+    gate_types = [gate_type for gate_type, count in summary["gate_counts"].items() for _ in range(count)]
+    if "H" in gate_types and "CNOT" in gate_types:
+        notes.append("This matches the classic Bell-state pattern: the H gate creates superposition, then CNOT correlates the two qubits.")
+    elif "H" in gate_types:
+        notes.append("The Hadamard gate puts its target qubit into an equal superposition of |0> and |1> before later operations.")
+    if "CNOT" in gate_types and "H" not in gate_types:
+        notes.append("The circuit uses an entangling CNOT before any visible superposition-creating gate, so it may only correlate a computational-basis state.")
+    if summary["untouched_qubits"]:
+        labels = ", ".join(f"q{qubit}" for qubit in summary["untouched_qubits"])
+        notes.append(f"{labels} never receive a gate, so their measured state stays at the initial |0> state.")
+    if not notes:
+        notes.append("The circuit is ready to explore. Run it, then compare the measured probabilities with the gates acting on each qubit.")
+    if question:
+        notes.append(f"Offline mentor note: I cannot answer '{question}' with the language model disabled, but the circuit summary above is the place to start.")
+    return notes
+
+
+def _llm_notes(summary: dict, diagram: str, question: str | None) -> list[str]:
+    import anthropic
+
+    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    prompt = (
+        f"Circuit summary:\n{summary}\n\nCircuit diagram:\n{diagram}\n\n"
+        f"Student question: {question or 'No question provided.'}"
+    )
+    response = client.messages.create(
+        model=os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5"),
+        max_tokens=700,
+        system=SYSTEM_PROMPT,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    text = "\n\n".join(block.text for block in response.content if getattr(block, "type", None) == "text")
+    return [paragraph.strip() for paragraph in text.split("\n\n") if paragraph.strip()]
+
+
+def generate_mentor_notes(circuit_summary: dict, diagram: str, question: str | None) -> list[str]:
+    try:
+        if os.getenv("ANTHROPIC_API_KEY"):
+            return _llm_notes(circuit_summary, diagram, question)
+    except Exception:
+        pass
+    return _fallback_notes(circuit_summary, question)
+
+
+def mentor_notes_for_circuit(circuit: CircuitModel, question: str | None = None) -> tuple[dict, str, list[str]]:
+    summary = circuit_summary(circuit)
+    diagram = str(build_qiskit_circuit(circuit).draw(output="text"))
+    notes = generate_mentor_notes(summary, diagram, question)
+    return summary, diagram, notes

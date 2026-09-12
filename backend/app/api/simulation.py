@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 
 from app.quantum.qiskit_adapter import simulate_circuit
-from app.schemas.circuit import CircuitModel, ProbabilityResult, SimulationResponse
+from app.mentor import mentor_notes_for_circuit
+from app.schemas.circuit import CircuitModel, MentorRequest, ProbabilityResult, SimulationResponse
 
 router = APIRouter(prefix="/api", tags=["simulation"])
 
@@ -26,3 +27,9 @@ def simulate(circuit: CircuitModel, shots: int = 1024) -> SimulationResponse:
 @router.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "service": "qubitlab-api"}
+
+
+@router.post("/mentor")
+def mentor(request: MentorRequest) -> dict:
+    summary, diagram, notes = mentor_notes_for_circuit(request, request.question)
+    return {"summary": summary, "diagram": diagram, "notes": notes}
