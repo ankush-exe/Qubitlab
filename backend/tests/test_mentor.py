@@ -42,7 +42,8 @@ def test_mentor_falls_back_when_llm_fails(monkeypatch) -> None:
     assert any("Bell-state" in note for note in response.json()["notes"])
 
 
-def test_mentor_flags_entanglement_before_superposition() -> None:
+def test_mentor_flags_entanglement_before_superposition(monkeypatch) -> None:
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     response = client.post(
         "/api/mentor",
         json={

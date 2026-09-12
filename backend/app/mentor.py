@@ -66,7 +66,7 @@ def _llm_notes(summary: dict, diagram: str, question: str | None) -> list[str]:
         f"Student question: {question or 'No question provided.'}"
     )
     response = client.models.generate_content(
-        model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
+        model=os.getenv("GEMINI_MODEL", "gemini-3.6-flash"),
         contents=prompt,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT,

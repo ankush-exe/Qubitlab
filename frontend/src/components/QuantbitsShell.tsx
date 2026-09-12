@@ -23,7 +23,7 @@ export default function QuantbitsShell() {
       <div className="user-mini"><span className="avatar">AK</span><span><strong>Ankush Kumar</strong><small>Explorer · level 04</small></span><b>•••</b></div>
     </aside>
     <div className="content-shell">
-      <header className="app-topbar"><div className="crumbs"><span>QUANTBITS</span><b>/</b><strong>{playerMode ? "Course player" : "Learning space"}</strong></div><div className="top-actions"><button className="icon-button" title="Search" type="button">⌕</button><button className="icon-button" title="Notifications" type="button">◌</button><span className="top-divider" /><span className="streak">✦ 7 day streak</span></div></header>
+      <header className="app-topbar"><div className="crumbs"><NavLink className="home-control" title="Go home" to="/">⌂ <span>Home</span></NavLink><b>/</b><strong>{playerMode ? "Course player" : "Learning space"}</strong></div><div className="top-actions"><button className="icon-button" title="Search" type="button">⌕</button><button className="icon-button" title="Notifications" type="button">◌</button><span className="top-divider" /><span className="streak">✦ 7 day streak</span></div></header>
       <main className="route-content"><Outlet /></main>
     </div>
     {!playerMode && <GlobalChat />}

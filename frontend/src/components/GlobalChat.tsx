@@ -21,8 +21,9 @@ export default function GlobalChat({ circuit = null }: GlobalChatProps) {
     try {
       const response = await askMentor(circuit, trimmed);
       setMessages((current) => [...current, { role: "bot", text: response.notes.join("\n\n") }]);
-    } catch {
-      setMessages((current) => [...current, { role: "bot", text: "I could not reach the mentor right now. Keep exploring the lesson and try again in a moment." }]);
+    } catch (caught) {
+      const detail = caught instanceof Error ? caught.message : "Unknown connection error";
+      setMessages((current) => [...current, { role: "bot", text: `I could not reach Q-BOT. ${detail}` }]);
     } finally { setLoading(false); }
   };
 

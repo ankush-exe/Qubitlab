@@ -1,10 +1,12 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
 from app.api.simulation import router as simulation_router
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 app = FastAPI(title="QubitLab API", version="0.1.0")
 app.add_middleware(
