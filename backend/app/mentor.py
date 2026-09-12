@@ -57,26 +57,29 @@ def _fallback_notes(summary: dict, question: str | None) -> list[str]:
 
 
 def _llm_notes(summary: dict, diagram: str, question: str | None) -> list[str]:
-    import anthropic
+    from google import genai
+    from google.genai import types
 
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     prompt = (
         f"Circuit summary:\n{summary}\n\nCircuit diagram:\n{diagram}\n\n"
         f"Student question: {question or 'No question provided.'}"
     )
-    response = client.messages.create(
-        model=os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5"),
-        max_tokens=700,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": prompt}],
+    response = client.models.generate_content(
+        model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            max_output_tokens=700,
+        ),
     )
-    text = "\n\n".join(block.text for block in response.content if getattr(block, "type", None) == "text")
+    text = response.text or ""
     return [paragraph.strip() for paragraph in text.split("\n\n") if paragraph.strip()]
 
 
 def generate_mentor_notes(circuit_summary: dict, diagram: str, question: str | None) -> list[str]:
     try:
-        if os.getenv("ANTHROPIC_API_KEY"):
+        if os.getenv("GEMINI_API_KEY"):
             return _llm_notes(circuit_summary, diagram, question)
     except Exception:
         pass

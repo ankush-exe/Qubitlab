@@ -15,7 +15,7 @@ BELL_CIRCUIT = {
 
 
 def test_bell_mentor_works_offline(monkeypatch) -> None:
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     response = client.post("/api/mentor", json=BELL_CIRCUIT)
     assert response.status_code == 200
     body = response.json()
@@ -25,7 +25,7 @@ def test_bell_mentor_works_offline(monkeypatch) -> None:
 
 
 def test_bell_mentor_uses_llm_when_key_is_set(monkeypatch) -> None:
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+    monkeypatch.setenv("GEMINI_API_KEY", "test-key")
     monkeypatch.setattr(mentor_module, "_llm_notes", lambda summary, diagram, question: ["The mocked tutor reviewed the Bell circuit."])
     response = client.post("/api/mentor", json={**BELL_CIRCUIT, "question": "Why are the results correlated?"})
     assert response.status_code == 200
@@ -33,7 +33,7 @@ def test_bell_mentor_uses_llm_when_key_is_set(monkeypatch) -> None:
 
 
 def test_mentor_falls_back_when_llm_fails(monkeypatch) -> None:
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+    monkeypatch.setenv("GEMINI_API_KEY", "test-key")
     def raise_error(summary, diagram, question):
         raise RuntimeError("network unavailable")
     monkeypatch.setattr(mentor_module, "_llm_notes", raise_error)

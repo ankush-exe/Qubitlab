@@ -32,6 +32,10 @@ npm run dev
 
 Open http://localhost:5173. The API is expected at http://localhost:8000. Set `VITE_API_URL` to change it.
 
+### Gemini mentor
+
+The Circuit Doctor uses Google Gemini when `GEMINI_API_KEY` is set. Copy `backend/.env.example` to `backend/.env`, add your private key, and restart the backend. Without a key, the local rule-based mentor remains available.
+
 ### Services
 
 ```bash
