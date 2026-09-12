@@ -70,9 +70,11 @@ Legacy destinations such as `/dashboard`, `/progress`, `/quantum-lab`, `/experim
 
 ## Product status
 
-Real and working: Qiskit Aer simulation, drag-and-drop circuit editing, OpenQASM and diagram output, circuit-aware Gemini mentor with offline fallback, course catalog and player shell, markdown docs, My Learning progress presentation, contextual Lab starter circuit, general and circuit-aware Q-BOT requests, and responsive route navigation.
+Real and working: Qiskit Aer simulation, drag-and-drop circuit editing, Blockly visual coding that compiles into the shared circuit model, generated Qiskit code, OpenQASM and diagram output, circuit-aware Gemini mentor with offline fallback, course catalog and player shell, markdown docs, My Learning progress presentation, contextual Lab starter circuit, general and circuit-aware Q-BOT requests, and responsive route navigation.
 
 Demo data / placeholder: authentication, user persistence, course enrollment mutations, saved circuits, certificates, instructor/admin tooling, quiz scoring, real progress writes, and production database/session integration. These are intentionally represented as local demo data until the Postgres and Redis layers are connected.
+
+The remote `drag-drop` branch was an independent snapshot with no merge base to `main`. Its Blockly visual-programming feature was integrated selectively into the current course-player Lab; its unrelated snapshot files, debug logs, and framework expansion were not merged.
 
 ## Roadmap
 

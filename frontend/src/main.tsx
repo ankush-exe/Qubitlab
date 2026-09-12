@@ -7,6 +7,7 @@ import "./mentor.css";
 import "./quantbits.css";
 import "./ia.css";
 import "./home-redesign.css";
+import "./visual-coding.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
