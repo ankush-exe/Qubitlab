@@ -22,3 +22,16 @@ export type SimulationResult = {
   qasm: string;
   diagram: string;
 };
+
+export type MentorResponse = {
+  summary: {
+    qubits: number;
+    gate_count: number;
+    gate_counts: Record<string, number>;
+    touched_qubits: number[];
+    untouched_qubits: number[];
+    entangling_pairs: { control: number; target: number }[];
+  };
+  diagram: string;
+  notes: string[];
+};
