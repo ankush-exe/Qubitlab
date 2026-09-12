@@ -1,6 +1,6 @@
 # QubitLab
 
-QubitLab is an AI-powered interactive quantum algorithm learning platform for Smart India Hackathon. The first vertical slice is Circuit Lab: learners visually compose a circuit, run it on Qiskit Aer, and inspect measured state probabilities, OpenQASM, and a circuit diagram.
+QubitLab (branded in the product as Quantbits) is an AI-powered interactive quantum learning platform for Smart India Hackathon. Learners move from a structured lesson into Quantum Lab, compose a circuit visually, run it on Qiskit Aer, inspect measured state probabilities, and ask the Circuit Doctor why the result happened.
 
 ## Stack
 
@@ -55,7 +55,7 @@ The frontend sends a framework-independent circuit model. Quantum adapters are r
 
 ## Roadmap
 
-1. Circuit Lab vertical slice (current)
+1. Product shell, dashboard, courses, interactive lesson, experiments, progress, and Quantum Lab (current)
 2. Learning modules: Fundamentals, Gates, Superposition, Entanglement, Algorithms
 3. AI Circuit Doctor with circuit context and learning history
 4. Challenges and automatic evaluation
