@@ -10,8 +10,8 @@ import type { CircuitModel, GateType, SimulationResult } from "../types/circuit"
 const MOMENTS = 6;
 const initialCircuit: CircuitModel = { qubits: 2, gates: [] };
 
-export default function QuantumLabPage() {
-  const [circuit, setCircuit] = useState(initialCircuit);
+export default function QuantumLabPage({ initialCircuit: startingCircuit = initialCircuit }: { initialCircuit?: CircuitModel }) {
+  const [circuit, setCircuit] = useState(startingCircuit);
   const [result, setResult] = useState<SimulationResult | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +36,7 @@ export default function QuantumLabPage() {
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Unable to reach the quantum simulator"); } finally { setIsRunning(false); }
   };
 
-  const clearCircuit = () => { setCircuit(initialCircuit); setResult(null); setError(null); setMentorNotes([]); setMentorError(null); };
+  const clearCircuit = () => { setCircuit(startingCircuit); setResult(null); setError(null); setMentorNotes([]); setMentorError(null); };
   const hasHadamard = circuit.gates.some((gate) => gate.type === "H" && gate.targets.includes(0));
   const hasX = circuit.gates.some((gate) => gate.type === "X" && gate.targets.includes(0));
 

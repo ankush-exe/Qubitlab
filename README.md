@@ -57,12 +57,26 @@ The frontend sends a framework-independent circuit model. Quantum adapters are r
 }
 ```
 
+## Current route map
+
+- `/` — public Quantbits home
+- `/courses` — course catalog
+- `/courses/:slug` — course landing page and curriculum outline
+- `/courses/:slug/learn` — Udemy-style course player with Overview, Lesson, Lab, and Resources tabs
+- `/docs` and `/docs/:slug` — markdown-backed quantum reference library
+- `/my-learning` — enrolled courses, progress, Continue actions, and the free-play Sandbox entry point
+
+Legacy destinations such as `/dashboard`, `/progress`, `/quantum-lab`, `/experiments`, and `/ai-tutor` redirect into the consolidated IA. Quantum Lab is contextual inside the course player; Q-BOT is a persistent shell-level chat drawer.
+
+## Product status
+
+Real and working: Qiskit Aer simulation, drag-and-drop circuit editing, OpenQASM and diagram output, circuit-aware Gemini mentor with offline fallback, course catalog and player shell, markdown docs, My Learning progress presentation, contextual Lab starter circuit, general and circuit-aware Q-BOT requests, and responsive route navigation.
+
+Demo data / placeholder: authentication, user persistence, course enrollment mutations, saved circuits, certificates, instructor/admin tooling, quiz scoring, real progress writes, and production database/session integration. These are intentionally represented as local demo data until the Postgres and Redis layers are connected.
+
 ## Roadmap
 
-1. Product shell, dashboard, courses, interactive lesson, experiments, progress, and Quantum Lab (current)
-2. Learning modules: Fundamentals, Gates, Superposition, Entanglement, Algorithms
-3. AI Circuit Doctor with circuit context and learning history
-4. Challenges and automatic evaluation
-5. Progress dashboard and personalized learning
-6. Authentication, Postgres persistence, Redis sessions, Docker deployment
-7. PennyLane and Cirq execution adapters
+1. Persist users, enrollments, progress, notes, circuits, and AI conversations in Postgres/Redis
+2. Add assessments, challenge evaluation, achievements, and certificates
+3. Add instructor/admin workspaces and role-based authentication
+4. Add PennyLane and Cirq execution adapters

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from app.quantum.qiskit_adapter import simulate_circuit
-from app.mentor import mentor_notes_for_circuit
+from app.mentor import generate_general_mentor_notes, mentor_notes_for_circuit
 from app.schemas.circuit import CircuitModel, MentorRequest, ProbabilityResult, SimulationResponse
 
 router = APIRouter(prefix="/api", tags=["simulation"])
@@ -31,5 +31,8 @@ def health() -> dict[str, str]:
 
 @router.post("/mentor")
 def mentor(request: MentorRequest) -> dict:
-    summary, diagram, notes = mentor_notes_for_circuit(request, request.question)
+    circuit = request.as_circuit()
+    if circuit is None:
+        return {"summary": {"context": "general quantum-computing question"}, "diagram": "", "notes": generate_general_mentor_notes(request.question)}
+    summary, diagram, notes = mentor_notes_for_circuit(circuit, request.question)
     return {"summary": summary, "diagram": diagram, "notes": notes}

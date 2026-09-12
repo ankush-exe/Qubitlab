@@ -1,25 +1,27 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import QuantbitsShell from "./components/QuantbitsShell";
 import HomePage from "./pages/HomePage";
-import DashboardPage from "./pages/DashboardPage";
 import CoursesPage from "./pages/CoursesPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
-import LessonPage from "./pages/LessonPage";
-import QuantumLabPage from "./pages/QuantumLabPage";
-import { AiTutorPage, ExperimentsPage, ProgressPage } from "./pages/UtilityPages";
+import CoursePlayerPage from "./pages/CoursePlayerPage";
+import DocsPage from "./pages/DocsPage";
+import MyLearningPage from "./pages/MyLearningPage";
 
 export default function App() {
   return <Routes>
     <Route path="/" element={<HomePage />} />
     <Route element={<QuantbitsShell />}>
-      <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/courses" element={<CoursesPage />} />
       <Route path="/courses/:courseId" element={<CourseDetailPage />} />
-      <Route path="/courses/:courseId/lesson/:lessonId" element={<LessonPage />} />
-      <Route path="/quantum-lab" element={<QuantumLabPage />} />
-      <Route path="/experiments" element={<ExperimentsPage />} />
-      <Route path="/ai-tutor" element={<AiTutorPage />} />
-      <Route path="/progress" element={<ProgressPage />} />
+      <Route path="/courses/:courseId/learn" element={<CoursePlayerPage />} />
+      <Route path="/docs" element={<DocsPage />} />
+      <Route path="/docs/:slug" element={<DocsPage />} />
+      <Route path="/my-learning" element={<MyLearningPage />} />
+      <Route path="/dashboard" element={<Navigate replace to="/my-learning" />} />
+      <Route path="/progress" element={<Navigate replace to="/my-learning" />} />
+      <Route path="/quantum-lab" element={<Navigate replace to="/my-learning" />} />
+      <Route path="/experiments" element={<Navigate replace to="/courses/fundamentals/learn?tab=lab" />} />
+      <Route path="/ai-tutor" element={<Navigate replace to="/" />} />
     </Route>
     <Route path="*" element={<Navigate replace to="/" />} />
   </Routes>;

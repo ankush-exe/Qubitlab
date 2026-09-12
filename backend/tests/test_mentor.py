@@ -56,3 +56,10 @@ def test_mentor_flags_entanglement_before_superposition() -> None:
     assert response.status_code == 200
     assert response.json()["summary"]["entangling_before_superposition"] is True
     assert any("before any visible superposition" in note for note in response.json()["notes"])
+
+
+def test_general_mentor_question_without_circuit() -> None:
+    response = client.post("/api/mentor", json={"question": "What is superposition?"})
+    assert response.status_code == 200
+    assert response.json()["summary"]["context"] == "general quantum-computing question"
+    assert response.json()["notes"]

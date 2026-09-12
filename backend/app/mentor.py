@@ -86,6 +86,18 @@ def generate_mentor_notes(circuit_summary: dict, diagram: str, question: str | N
     return _fallback_notes(circuit_summary, question)
 
 
+def generate_general_mentor_notes(question: str | None) -> list[str]:
+    summary = {"context": "general quantum-computing question"}
+    try:
+        if os.getenv("GEMINI_API_KEY"):
+            return _llm_notes(summary, "No circuit was supplied.", question)
+    except Exception:
+        pass
+    if question:
+        return [f"I can help you reason about '{question}'. Try asking about a specific concept, gate, or measurement result, and I will break it down step by step."]
+    return ["Ask me about qubits, gates, superposition, entanglement, or the result of a circuit."]
+
+
 def mentor_notes_for_circuit(circuit: CircuitModel, question: str | None = None) -> tuple[dict, str, list[str]]:
     summary = circuit_summary(circuit)
     diagram = str(build_qiskit_circuit(circuit).draw(output="text"))

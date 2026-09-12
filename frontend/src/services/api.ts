@@ -14,11 +14,11 @@ export async function simulateCircuit(circuit: CircuitModel): Promise<Simulation
   return response.json() as Promise<SimulationResult>;
 }
 
-export async function askMentor(circuit: CircuitModel, question?: string): Promise<MentorResponse> {
+export async function askMentor(circuit: CircuitModel | null, question?: string): Promise<MentorResponse> {
   const response = await fetch(`${API_URL}/api/mentor`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...circuit, question }),
+    body: JSON.stringify({ ...(circuit ?? {}), question }),
   });
   if (!response.ok) {
     throw new Error(`Mentor request failed with status ${response.status}`);

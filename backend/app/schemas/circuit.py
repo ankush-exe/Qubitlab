@@ -43,8 +43,20 @@ class CircuitModel(BaseModel):
         return self
 
 
-class MentorRequest(CircuitModel):
+class MentorRequest(BaseModel):
+    qubits: int | None = Field(default=None, ge=1, le=8)
+    classical_bits: int | None = Field(default=None, ge=1, le=8)
+    gates: list[GateOperation] = Field(default_factory=list)
     question: str | None = Field(default=None, max_length=1000)
+
+    def as_circuit(self) -> CircuitModel | None:
+        if self.qubits is None:
+            return None
+        return CircuitModel(
+            qubits=self.qubits,
+            classical_bits=self.classical_bits,
+            gates=self.gates,
+        )
 
 
 class ProbabilityResult(BaseModel):

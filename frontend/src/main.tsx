@@ -5,6 +5,7 @@ import App from "./App";
 import "./styles.css";
 import "./mentor.css";
 import "./quantbits.css";
+import "./ia.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
