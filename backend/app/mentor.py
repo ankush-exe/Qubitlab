@@ -13,6 +13,7 @@ paragraphs. Do not use markdown headers or bullets."""
 
 def circuit_summary(circuit: CircuitModel) -> dict:
     gate_counts = Counter(gate.type for gate in circuit.gates)
+    ordered_gates = sorted(circuit.gates, key=lambda gate: (gate.moment, gate.id))
     touched_qubits = sorted(
         {qubit for gate in circuit.gates for qubit in gate.targets + gate.controls}
     )
@@ -28,6 +29,11 @@ def circuit_summary(circuit: CircuitModel) -> dict:
         "touched_qubits": touched_qubits,
         "untouched_qubits": [qubit for qubit in range(circuit.qubits) if qubit not in touched_qubits],
         "entangling_pairs": entangling_pairs,
+        "entangling_before_superposition": any(
+            gate.type == "CNOT"
+            and not any(previous.type == "H" and previous.moment < gate.moment for previous in ordered_gates)
+            for gate in ordered_gates
+        ),
     }
 
 
@@ -38,7 +44,7 @@ def _fallback_notes(summary: dict, question: str | None) -> list[str]:
         notes.append("This matches the classic Bell-state pattern: the H gate creates superposition, then CNOT correlates the two qubits.")
     elif "H" in gate_types:
         notes.append("The Hadamard gate puts its target qubit into an equal superposition of |0> and |1> before later operations.")
-    if "CNOT" in gate_types and "H" not in gate_types:
+    if summary["entangling_before_superposition"]:
         notes.append("The circuit uses an entangling CNOT before any visible superposition-creating gate, so it may only correlate a computational-basis state.")
     if summary["untouched_qubits"]:
         labels = ", ".join(f"q{qubit}" for qubit in summary["untouched_qubits"])

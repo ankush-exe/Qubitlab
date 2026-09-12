@@ -40,3 +40,19 @@ def test_mentor_falls_back_when_llm_fails(monkeypatch) -> None:
     response = client.post("/api/mentor", json=BELL_CIRCUIT)
     assert response.status_code == 200
     assert any("Bell-state" in note for note in response.json()["notes"])
+
+
+def test_mentor_flags_entanglement_before_superposition() -> None:
+    response = client.post(
+        "/api/mentor",
+        json={
+            "qubits": 2,
+            "gates": [
+                {"id": "cx-0", "type": "CNOT", "controls": [0], "targets": [1], "moment": 0},
+                {"id": "h-1", "type": "H", "targets": [0], "moment": 1},
+            ],
+        },
+    )
+    assert response.status_code == 200
+    assert response.json()["summary"]["entangling_before_superposition"] is True
+    assert any("before any visible superposition" in note for note in response.json()["notes"])

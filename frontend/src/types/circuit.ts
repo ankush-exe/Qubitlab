@@ -31,6 +31,7 @@ export type MentorResponse = {
     touched_qubits: number[];
     untouched_qubits: number[];
     entangling_pairs: { control: number; target: number }[];
+    entangling_before_superposition: boolean;
   };
   diagram: string;
   notes: string[];
